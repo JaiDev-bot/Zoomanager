@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class AnimalServiceIMPL implements AnimalService {
 
 
-    @Autowired AnimalService AnimalService;
+
 
     @Override
     public  String addAnimal(AnimalSaveDTO animalSaveDTO){
