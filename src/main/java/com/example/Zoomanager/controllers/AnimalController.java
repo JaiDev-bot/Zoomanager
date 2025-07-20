@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class AnimalController {
 
-
     @Autowired
     private AnimalService animalService;
 
