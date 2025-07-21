@@ -10,7 +10,9 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Alertas", description = "Gerenciamento de alertas relacionados aos animais do zoológico")
 public interface AlertaSwagger {
     
     @Operation(summary = "Abrir novo alerta", description = "Endpoint para abrir um novo alerta com relação a um animal para um tratador")
