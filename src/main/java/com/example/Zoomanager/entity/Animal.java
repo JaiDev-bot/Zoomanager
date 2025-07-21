@@ -18,10 +18,20 @@ public class Animal {
     private Long idEspecie;
     private LocalTime LastTimeFed;
 
+    public Animal() {}
+
     public Animal(String name, Long idEspecie, LocalTime lastTimeFed) {
         this.name = name;
         this.idEspecie = idEspecie;
         LastTimeFed = lastTimeFed;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
