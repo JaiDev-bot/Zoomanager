@@ -17,9 +17,9 @@ public class TratadorServiceIMPL implements TratadorService {
     @Override
     public String addTratador(TratadorSaveDTO tratadorSaveDTO){
         tratadorRepository.save(new Tratador(
-                tratadorSaveDTO.id(),
-               tratadorSaveDTO.name(),
-                tratadorSaveDTO.ocupado()
+                tratadorSaveDTO.getId(),
+               tratadorSaveDTO.getName(),
+                tratadorSaveDTO.getOcupado()
         ));
 
         return "";
