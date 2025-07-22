@@ -29,7 +29,7 @@ public class AlertaServiceIMPL implements AlertaService {
 
         // TODO: Adicionar validação do ID do tratador
         
-        TipoAlerta tipoAlertaVerificado = EnumUtils.getEnumFromString(TipoAlerta.class, alertaSaveDTO.getTipo());
+        TipoAlerta tipoAlertaVerificado = EnumUtils.getEnumValueFromString(TipoAlerta.class, alertaSaveDTO.getTipo());
         if (tipoAlertaVerificado == null) {
             throw new RuntimeException("Tipo de alerta inválido: " + alertaSaveDTO.getTipo());
         }

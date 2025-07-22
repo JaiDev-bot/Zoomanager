@@ -42,6 +42,11 @@ public class Alerta {
         return id;
     }
 
+    public long setId(long id) {
+        this.id = id;
+        return id;
+    }
+
     public Long getIdTratador() {
         return idTratador;
     }

@@ -1,7 +1,5 @@
 package com.example.Zoomanager.dto;
 
-import com.example.Zoomanager.enums.TipoAlerta;
-
 public class AlertaSaveDTO {
     private Long idTratador;
     private Long idAnimal;
