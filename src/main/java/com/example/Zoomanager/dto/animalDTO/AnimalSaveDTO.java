@@ -1,4 +1,4 @@
-package com.example.Zoomanager.dto;
+package com.example.Zoomanager.dto.animalDTO;
 
 import java.time.LocalTime;
 
@@ -6,6 +6,10 @@ public class AnimalSaveDTO {
     private String name;
     private Long idEspecie;
     private LocalTime lastTimeFed;
+
+    public AnimalSaveDTO(){
+
+    }
 
     public AnimalSaveDTO(String name, Long idEspecie, LocalTime lastTimeFed) {
         this.name = name;
