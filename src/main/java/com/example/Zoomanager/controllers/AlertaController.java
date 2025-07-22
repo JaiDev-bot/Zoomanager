@@ -1,7 +1,8 @@
 package com.example.Zoomanager.controllers;
 
 import com.example.Zoomanager.dto.AlertaSaveDTO;
-import com.example.Zoomanager.service.InterfaceService.AlertaService;
+
+import com.example.Zoomanager.service.interfaceService.AlertaService;
 import com.example.Zoomanager.swagger.AlertaSwagger;
 
 import org.slf4j.Logger;

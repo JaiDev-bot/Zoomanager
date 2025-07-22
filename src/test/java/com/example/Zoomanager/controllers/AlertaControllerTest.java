@@ -1,5 +1,6 @@
 package com.example.Zoomanager.controllers;
 
+import com.example.Zoomanager.service.interfaceService.AlertaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import com.example.Zoomanager.dto.AlertaSaveDTO;
-import com.example.Zoomanager.service.InterfaceService.AlertaService;
+
 
 @ExtendWith(MockitoExtension.class)
 public class AlertaControllerTest {

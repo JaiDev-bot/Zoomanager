@@ -1,4 +1,4 @@
-package com.example.Zoomanager.service.InterfaceService;
+package com.example.Zoomanager.service.interfaceService;
 
 import com.example.Zoomanager.dto.AlertaSaveDTO;
 
