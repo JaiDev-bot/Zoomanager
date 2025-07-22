@@ -1,4 +1,4 @@
-package com.example.Zoomanager.dto;
+package com.example.Zoomanager.dto.animalDTO;
 
 import java.time.LocalTime;
 

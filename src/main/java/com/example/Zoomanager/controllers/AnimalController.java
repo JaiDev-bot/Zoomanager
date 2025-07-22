@@ -1,7 +1,7 @@
 package com.example.Zoomanager.controllers;
 
 
-import com.example.Zoomanager.dto.AnimalSaveDTO;
+import com.example.Zoomanager.dto.animalDTO.AnimalSaveDTO;
 import com.example.Zoomanager.service.interfaceService.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
