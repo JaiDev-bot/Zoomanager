@@ -7,6 +7,10 @@ public class AnimalSaveDTO {
     private Long idEspecie;
     private LocalTime lastTimeFed;
 
+    public AnimalSaveDTO(){
+
+    }
+
     public AnimalSaveDTO(String name, Long idEspecie, LocalTime lastTimeFed) {
         this.name = name;
         this.idEspecie = idEspecie;
