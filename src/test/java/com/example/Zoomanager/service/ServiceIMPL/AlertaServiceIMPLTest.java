@@ -1,4 +1,4 @@
-package com.example.Zoomanager.service.ServiceIMPL;
+package com.example.Zoomanager.service.serviceIMPL;
 
 import java.time.LocalTime;
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class AlertaServiceIMPLTest {
     private AnimalRepository animalRepository;
 
     @InjectMocks
-    private AlertaServiceIMPL alertaServiceIMPL;
+    private AlertaServiceIMPL service;
 
     @Test
     void addAlerta_Sucesso() {
@@ -43,7 +43,7 @@ public class AlertaServiceIMPLTest {
         Mockito.when(repository.save(Mockito.any(Alerta.class)))
             .thenReturn(mockAlerta);
 
-        Assertions.assertDoesNotThrow(() -> alertaServiceIMPL.addAlerta(mockAlertaSaveDTO));
+        Assertions.assertDoesNotThrow(() -> service.addAlerta(mockAlertaSaveDTO));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class AlertaServiceIMPLTest {
         Mockito.when(animalRepository.findById(Mockito.anyLong()))
             .thenReturn(Optional.of(mockAnimal));
 
-        Assertions.assertThrows(RuntimeException.class, () -> alertaServiceIMPL.addAlerta(mockAlertaSaveDTO));
+        Assertions.assertThrows(RuntimeException.class, () -> service.addAlerta(mockAlertaSaveDTO));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class AlertaServiceIMPLTest {
         Mockito.when(animalRepository.findById(Mockito.anyLong()))
             .thenThrow(RuntimeException.class);
 
-        Assertions.assertThrows(RuntimeException.class, () -> alertaServiceIMPL.addAlerta(mockAlertaSaveDTO));
+        Assertions.assertThrows(RuntimeException.class, () -> service.addAlerta(mockAlertaSaveDTO));
     }
 
     private AlertaSaveDTO mockAlertaSaveDTO() {
