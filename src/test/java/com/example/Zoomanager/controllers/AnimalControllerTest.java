@@ -13,6 +13,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @ExtendWith(MockitoExtension.class)
 public class AnimalControllerTest {
 
@@ -29,7 +34,7 @@ public class AnimalControllerTest {
 
         ResponseEntity<?> response = animalController.saveAnimal(mockAnimalSaveDTO);
 
-        Assertions.assertEquals(ResponseEntity.created(null).body("Animal adicionado com sucesso!"), response);
+        assertEquals(ResponseEntity.created(null).body("Animal adicionado com sucesso!"), response);
     }
 
     @Test
@@ -39,6 +44,26 @@ public class AnimalControllerTest {
 
         ResponseEntity<?> response = animalController.saveAnimal(mockAnimalSaveDTO);
 
-        Assertions.assertEquals(ResponseEntity.internalServerError().body("Não foi possível adicionar o animal."), response);
+        assertEquals(ResponseEntity.internalServerError().body("Não foi possível adicionar o animal."), response);
+    }
+
+    @Test
+    void getAnimals_DeveRetornarNoContent_QuandoListaVazia() {
+        Mockito.when(animalService.getAllAnimals()).thenReturn(List.of());
+
+        ResponseEntity<List<AnimalSaveDTO>> response = animalController.getAnimals();
+
+        assertEquals(204, response.getStatusCodeValue());
+        assertNull(response.getBody());
+    }
+
+    @Test
+    void getAnimals_DeveRetornarInternalServerError_EmCasoDeErro() {
+        Mockito.when(animalService.getAllAnimals()).thenThrow(new RuntimeException("Erro"));
+
+        ResponseEntity<List<AnimalSaveDTO>> response = animalController.getAnimals();
+
+        assertEquals(500, response.getStatusCodeValue());
+        assertNull(response.getBody());
     }
 }
