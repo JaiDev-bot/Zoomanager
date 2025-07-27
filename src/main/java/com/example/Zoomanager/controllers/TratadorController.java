@@ -29,12 +29,12 @@ public class TratadorController {
 
         try {
             String name = tratadorService.addTratador(tratadorSaveDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(name + "foi adicionado com sucesso");
+            return ResponseEntity.status(HttpStatus.CREATED).body(name + " foi adicionado com sucesso!");
 
         } catch (Exception e) {
 
-         logger.error("Não foi possivel adcionar o Tratador ", e);
-         return ResponseEntity.internalServerError().body(" Não foi possivel adicionar o tratador ");
+         logger.error("Não foi possivel adcionar o Tratador. ", e);
+         return ResponseEntity.internalServerError().body(" Não foi possivel adicionar o tratador. ");
 
         }
 
