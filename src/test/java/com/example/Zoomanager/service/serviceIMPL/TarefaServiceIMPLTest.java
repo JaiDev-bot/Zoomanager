@@ -11,68 +11,68 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.example.Zoomanager.dto.AlertaSaveDTO;
-import com.example.Zoomanager.entity.Alerta;
+import com.example.Zoomanager.dto.tarefaDTO.TarefaSaveDTO;
+import com.example.Zoomanager.entity.Tarefa;
 import com.example.Zoomanager.entity.Animal;
-import com.example.Zoomanager.enums.TipoAlerta;
-import com.example.Zoomanager.repositories.RepositoryInterface.AlertaRepository;
+import com.example.Zoomanager.enums.TipoTarefa;
+import com.example.Zoomanager.repositories.RepositoryInterface.TarefaRepository;
 import com.example.Zoomanager.repositories.RepositoryInterface.AnimalRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class AlertaServiceIMPLTest {
+public class TarefaServiceIMPLTest {
 
     @Mock
-    private AlertaRepository repository;
+    private TarefaRepository repository;
 
     @Mock
     private AnimalRepository animalRepository;
 
     @InjectMocks
-    private AlertaServiceIMPL service;
+    private TarefaServiceIMPL service;
 
     @Test
-    void addAlerta_Sucesso() {
-        AlertaSaveDTO mockAlertaSaveDTO = mockAlertaSaveDTO();
+    void addTarefa_Sucesso() {
+        TarefaSaveDTO mockTarefaSaveDTO = mockTarefaSaveDTO();
         Animal mockAnimal = mockAnimal();
-        Alerta mockAlerta = mockAlerta();
-        mockAlerta.setAnimal(mockAnimal);
+        Tarefa mockTarefa = mockTarefa();
+        mockTarefa.setAnimal(mockAnimal);
 
         Mockito.when(animalRepository.findById(Mockito.anyLong()))
             .thenReturn(Optional.of(mockAnimal));
 
-        Mockito.when(repository.save(Mockito.any(Alerta.class)))
-            .thenReturn(mockAlerta);
+        Mockito.when(repository.save(Mockito.any(Tarefa.class)))
+            .thenReturn(mockTarefa);
 
-        Assertions.assertDoesNotThrow(() -> service.addAlerta(mockAlertaSaveDTO));
+        Assertions.assertDoesNotThrow(() -> service.addTarefa(mockTarefaSaveDTO));
     }
 
     @Test
-    void addAlerta_Falha_AnimalNaoEncontrado() {
-        AlertaSaveDTO mockAlertaSaveDTO = mockAlertaSaveDTO();
+    void addTarefa_Falha_AnimalNaoEncontrado() {
+        TarefaSaveDTO mockTarefaSaveDTO = mockTarefaSaveDTO();
         Animal mockAnimal = mockAnimal();
-        mockAlertaSaveDTO.setTipo("");
+        mockTarefaSaveDTO.setTipo("");
 
         Mockito.when(animalRepository.findById(Mockito.anyLong()))
             .thenReturn(Optional.of(mockAnimal));
 
-        Assertions.assertThrows(RuntimeException.class, () -> service.addAlerta(mockAlertaSaveDTO));
+        Assertions.assertThrows(RuntimeException.class, () -> service.addTarefa(mockTarefaSaveDTO));
     }
 
     @Test
-    void addAlerta_Falha_TipoAlertaInvalido() {
-        AlertaSaveDTO mockAlertaSaveDTO = mockAlertaSaveDTO();
+    void addTarefa_Falha_TipoTarefaInvalido() {
+        TarefaSaveDTO mockTarefaSaveDTO = mockTarefaSaveDTO();
 
         Mockito.when(animalRepository.findById(Mockito.anyLong()))
             .thenThrow(RuntimeException.class);
 
-        Assertions.assertThrows(RuntimeException.class, () -> service.addAlerta(mockAlertaSaveDTO));
+        Assertions.assertThrows(RuntimeException.class, () -> service.addTarefa(mockTarefaSaveDTO));
     }
 
-    private AlertaSaveDTO mockAlertaSaveDTO() {
-        AlertaSaveDTO alertaSaveDTO = new AlertaSaveDTO();
+    private TarefaSaveDTO mockTarefaSaveDTO() {
+        TarefaSaveDTO alertaSaveDTO = new TarefaSaveDTO();
         alertaSaveDTO.setIdAnimal(1L);
         alertaSaveDTO.setIdTratador(1L);
-        alertaSaveDTO.setTipo(TipoAlerta.ALIMENTACAO.toString());
+        alertaSaveDTO.setTipo(TipoTarefa.ALIMENTACAO.toString());
         return alertaSaveDTO;
     }
 
@@ -85,13 +85,13 @@ public class AlertaServiceIMPLTest {
         return animal;
     }
 
-    private Alerta mockAlerta() {
-        Alerta alerta = new Alerta();
+    private Tarefa mockTarefa() {
+        Tarefa alerta = new Tarefa();
         alerta.setId(1L);
         alerta.setIdTratador(1L);
         alerta.setAnimal(mockAnimal());
         alerta.setAberto(true);
-        alerta.setTipo(TipoAlerta.ALIMENTACAO);
+        alerta.setTipo(TipoTarefa.ALIMENTACAO);
         return alerta;
     }
 

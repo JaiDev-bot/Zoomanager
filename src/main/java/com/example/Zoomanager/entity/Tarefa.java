@@ -1,6 +1,6 @@
 package com.example.Zoomanager.entity;
 
-import com.example.Zoomanager.enums.TipoAlerta;
+import com.example.Zoomanager.enums.TipoTarefa;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,7 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Alerta {
+public class Tarefa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +27,11 @@ public class Alerta {
     private boolean aberto;
 
     @Enumerated(EnumType.STRING)
-    private TipoAlerta tipo;
+    private TipoTarefa tipo;
 
-    public Alerta() {}
+    public Tarefa() {}
 
-    public Alerta(Long idTratador, Animal animal, boolean aberto, TipoAlerta tipo) {
+    public Tarefa(Long idTratador, Animal animal, boolean aberto, TipoTarefa tipo) {
         this.idTratador = idTratador;
         this.animal = animal;
         this.aberto = aberto;
@@ -71,11 +71,11 @@ public class Alerta {
         this.aberto = aberto;
     }
 
-    public TipoAlerta getTipo() {
+    public TipoTarefa getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoAlerta tipo) {
+    public void setTipo(TipoTarefa tipo) {
         this.tipo = tipo;
     }
 }

@@ -1,11 +1,11 @@
 package com.example.Zoomanager.enums;
 
-public enum TipoAlerta {
+public enum TipoTarefa {
     ALIMENTACAO("Alimentação");
 
     private final String descricao;
 
-    TipoAlerta(String descricao) {
+    TipoTarefa(String descricao) {
         this.descricao = descricao;
     }
 

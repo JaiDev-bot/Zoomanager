@@ -1,13 +1,13 @@
-package com.example.Zoomanager.dto;
+package com.example.Zoomanager.dto.tarefaDTO;
 
-public class AlertaSaveDTO {
+public class TarefaSaveDTO {
     private Long idTratador;
     private Long idAnimal;
     private String tipo;
 
-    public AlertaSaveDTO() {}
+    public TarefaSaveDTO() {}
 
-    public AlertaSaveDTO(Long idTratador, Long idAnimal, String tipo) {
+    public TarefaSaveDTO(Long idTratador, Long idAnimal, String tipo) {
         this.idTratador = idTratador;
         this.idAnimal = idAnimal;
         this.tipo = tipo;
