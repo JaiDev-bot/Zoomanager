@@ -17,10 +17,10 @@ import com.example.Zoomanager.entity.Tratador;
 import com.example.Zoomanager.enums.tarefa.StatusTarefaEnum;
 import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
 import com.example.Zoomanager.exceptions.BadRequestException;
+import com.example.Zoomanager.repositories.repositoryInterface.AnimalRepository;
+import com.example.Zoomanager.repositories.repositoryInterface.TarefaRepository;
+import com.example.Zoomanager.repositories.repositoryInterface.TratadorRepository;
 import com.example.Zoomanager.entity.Animal;
-import com.example.Zoomanager.repositories.RepositoryInterface.TarefaRepository;
-import com.example.Zoomanager.repositories.RepositoryInterface.TratadorRepository;
-import com.example.Zoomanager.repositories.RepositoryInterface.AnimalRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class TarefaServiceIMPLTest {

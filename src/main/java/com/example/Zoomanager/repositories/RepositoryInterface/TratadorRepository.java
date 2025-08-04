@@ -1,4 +1,4 @@
-package com.example.Zoomanager.repositories.RepositoryInterface;
+package com.example.Zoomanager.repositories.repositoryInterface;
 
 import com.example.Zoomanager.entity.Tratador;
 import org.springframework.data.jpa.repository.JpaRepository;
