@@ -4,6 +4,7 @@ import com.example.Zoomanager.dto.tarefaDTO.TarefaSaveDTO;
 import com.example.Zoomanager.entity.Tarefa;
 import com.example.Zoomanager.enums.tarefa.StatusTarefaEnum;
 import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
+import com.example.Zoomanager.exceptions.BadRequestException;
 import com.example.Zoomanager.entity.Animal;
 import com.example.Zoomanager.repositories.RepositoryInterface.TarefaRepository;
 import com.example.Zoomanager.repositories.RepositoryInterface.AnimalRepository;
@@ -27,13 +28,13 @@ public class TarefaServiceIMPL implements TarefaService {
     public void addTarefa(TarefaSaveDTO tarefaSaveDTO) {
 
         Animal animalRef = animalRepository.findById(tarefaSaveDTO.getIdAnimal())
-                .orElseThrow(() -> new RuntimeException("Não foi possível encontrar o animal com o id: " + tarefaSaveDTO.getIdAnimal()));
+                .orElseThrow(() -> new BadRequestException("Não foi possível encontrar o animal com o id: " + tarefaSaveDTO.getIdAnimal()));
 
         // TODO: Adicionar validação do ID do tratador
 
         TipoTarefaEnum tipoTarefaVerificado = EnumUtils.getEnumValueFromString(TipoTarefaEnum.class, tarefaSaveDTO.getTipo());
         if (tipoTarefaVerificado == null) {
-            throw new RuntimeException("Tipo de tarefa inválido: " + tarefaSaveDTO.getTipo());
+            throw new BadRequestException("Tipo de tarefa inválido: " + tarefaSaveDTO.getTipo());
         }
 
         Tarefa alerta = new Tarefa(

@@ -15,6 +15,7 @@ import com.example.Zoomanager.dto.tarefaDTO.TarefaSaveDTO;
 import com.example.Zoomanager.entity.Tarefa;
 import com.example.Zoomanager.enums.tarefa.StatusTarefaEnum;
 import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
+import com.example.Zoomanager.exceptions.BadRequestException;
 import com.example.Zoomanager.entity.Animal;
 import com.example.Zoomanager.repositories.RepositoryInterface.TarefaRepository;
 import com.example.Zoomanager.repositories.RepositoryInterface.AnimalRepository;
@@ -56,7 +57,7 @@ public class TarefaServiceIMPLTest {
         Mockito.when(animalRepository.findById(Mockito.anyLong()))
             .thenReturn(Optional.of(mockAnimal));
 
-        Assertions.assertThrows(RuntimeException.class, () -> service.addTarefa(mockTarefaSaveDTO));
+        Assertions.assertThrows(BadRequestException.class, () -> service.addTarefa(mockTarefaSaveDTO));
     }
 
     @Test
@@ -64,9 +65,9 @@ public class TarefaServiceIMPLTest {
         TarefaSaveDTO mockTarefaSaveDTO = mockTarefaSaveDTO();
 
         Mockito.when(animalRepository.findById(Mockito.anyLong()))
-            .thenThrow(RuntimeException.class);
+            .thenThrow(BadRequestException.class);
 
-        Assertions.assertThrows(RuntimeException.class, () -> service.addTarefa(mockTarefaSaveDTO));
+        Assertions.assertThrows(BadRequestException.class, () -> service.addTarefa(mockTarefaSaveDTO));
     }
 
     private TarefaSaveDTO mockTarefaSaveDTO() {

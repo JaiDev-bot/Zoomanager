@@ -1,6 +1,7 @@
 package com.example.Zoomanager.controllers;
 
 import com.example.Zoomanager.dto.tarefaDTO.TarefaSaveDTO;
+import com.example.Zoomanager.exceptions.BadRequestException;
 import com.example.Zoomanager.service.interfaceService.TarefaService;
 import com.example.Zoomanager.swagger.TarefaSwagger;
 
@@ -28,6 +29,11 @@ public class TarefaController implements TarefaSwagger {
         try{
             tarefaService.addTarefa(alertaSaveDTO);
             return ResponseEntity.created(null).body("Tarefa criada com sucesso!");
+        }
+        catch(BadRequestException e){
+            String msgErro = "Não foi possível criar a tarefa:\n" + e.getMessage();
+            logger.error(msgErro, e);
+            return ResponseEntity.badRequest().body(msgErro);
         }
         catch (Exception e) {
             String msgErro = "Não foi possível criar a tarefa.";
