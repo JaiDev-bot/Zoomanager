@@ -1,6 +1,7 @@
 package com.example.Zoomanager.controllers;
 
 import com.example.Zoomanager.dto.tarefaDTO.TarefaSaveDTO;
+import com.example.Zoomanager.exceptions.BadRequestException;
 import com.example.Zoomanager.service.interfaceService.TarefaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,20 @@ public class TarefaControllerTest {
         ResponseEntity<?> response = tarefaController.addTarefa(mockAlertaSaveDTO);
         
         Assertions.assertEquals(ResponseEntity.internalServerError().body("Não foi possível criar a tarefa."), response);
+    }
+    
+    @Test
+    void addTarefa_Falha_BadRequest() {
+
+        TarefaSaveDTO mockAlertaSaveDTO = new TarefaSaveDTO();
+
+        Mockito.doThrow(BadRequestException.class)
+            .when(tarefaService)
+            .addTarefa(mockAlertaSaveDTO);
+            
+        ResponseEntity<?> response = tarefaController.addTarefa(mockAlertaSaveDTO);
+        
+        Assertions.assertEquals(ResponseEntity.badRequest().body("Não foi possível criar a tarefa:\nnull"), response);
     }
 
 }

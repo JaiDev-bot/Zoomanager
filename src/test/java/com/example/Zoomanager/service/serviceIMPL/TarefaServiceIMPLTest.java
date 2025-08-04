@@ -52,20 +52,19 @@ public class TarefaServiceIMPLTest {
     void addTarefa_Falha_AnimalNaoEncontrado() {
         TarefaSaveDTO mockTarefaSaveDTO = mockTarefaSaveDTO();
         Animal mockAnimal = mockAnimal();
-        mockTarefaSaveDTO.setTipo("");
-
-        Mockito.when(animalRepository.findById(Mockito.anyLong()))
-            .thenReturn(Optional.of(mockAnimal));
+        mockAnimal.setId(-1L);
 
         Assertions.assertThrows(BadRequestException.class, () -> service.addTarefa(mockTarefaSaveDTO));
     }
 
     @Test
     void addTarefa_Falha_TipoTarefaInvalido() {
+        Animal mockAnimal = mockAnimal();
         TarefaSaveDTO mockTarefaSaveDTO = mockTarefaSaveDTO();
+        mockTarefaSaveDTO.setTipo("");
 
         Mockito.when(animalRepository.findById(Mockito.anyLong()))
-            .thenThrow(BadRequestException.class);
+            .thenReturn(Optional.of(mockAnimal));
 
         Assertions.assertThrows(BadRequestException.class, () -> service.addTarefa(mockTarefaSaveDTO));
     }
