@@ -6,6 +6,7 @@ import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,10 +20,12 @@ public class Tarefa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long idTratador; // TODO: Mudar para Tratador quando a entidade for criada e adicionar o relacionamento
-
     @ManyToOne
-    @JoinColumn(name = "idAnimal", referencedColumnName = "id")
+    @JoinColumn(name = "idTratador", foreignKey = @ForeignKey(name = "tarefa_fk_tratador"))
+    private Tratador tratador;
+    
+    @ManyToOne
+    @JoinColumn(name = "idAnimal", foreignKey = @ForeignKey(name = "tarefa_fk_animal"))
     private Animal animal;
 
     @Enumerated(EnumType.STRING)
@@ -33,8 +36,8 @@ public class Tarefa {
 
     public Tarefa() {}
 
-    public Tarefa(Long idTratador, Animal animal, StatusTarefaEnum status, TipoTarefaEnum tipo) {
-        this.idTratador = idTratador;
+    public Tarefa(Tratador tratador, Animal animal, StatusTarefaEnum status, TipoTarefaEnum tipo) {
+        this.tratador = tratador;
         this.animal = animal;
         this.status = status;
         this.tipo = tipo;
@@ -49,12 +52,12 @@ public class Tarefa {
         return id;
     }
 
-    public Long getIdTratador() {
-        return idTratador;
+    public Tratador getTratador() {
+        return tratador;
     }
 
-    public void setIdTratador(Long idTratador) {
-        this.idTratador = idTratador;
+    public void setTratador(Tratador tratador) {
+        this.tratador = tratador;
     }
 
     public Animal getAnimal() {
