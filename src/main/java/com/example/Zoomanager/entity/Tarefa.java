@@ -1,6 +1,7 @@
 package com.example.Zoomanager.entity;
 
-import com.example.Zoomanager.enums.TipoTarefa;
+import com.example.Zoomanager.enums.tarefa.StatusTarefaEnum;
+import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,17 +25,18 @@ public class Tarefa {
     @JoinColumn(name = "idAnimal", referencedColumnName = "id")
     private Animal animal;
 
-    private boolean aberto;
-
     @Enumerated(EnumType.STRING)
-    private TipoTarefa tipo;
+    private StatusTarefaEnum status;
+    
+    @Enumerated(EnumType.STRING)
+    private TipoTarefaEnum tipo;
 
     public Tarefa() {}
 
-    public Tarefa(Long idTratador, Animal animal, boolean aberto, TipoTarefa tipo) {
+    public Tarefa(Long idTratador, Animal animal, StatusTarefaEnum status, TipoTarefaEnum tipo) {
         this.idTratador = idTratador;
         this.animal = animal;
-        this.aberto = aberto;
+        this.status = status;
         this.tipo = tipo;
     }
 
@@ -63,19 +65,19 @@ public class Tarefa {
         this.animal = animal;
     }
 
-    public boolean isAberto() {
-        return aberto;
+    public StatusTarefaEnum getStatus() {
+        return status;
     }
 
-    public void setAberto(boolean aberto) {
-        this.aberto = aberto;
+    public void setStatus(StatusTarefaEnum status) {
+        this.status = status;
     }
 
-    public TipoTarefa getTipo() {
+    public TipoTarefaEnum getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoTarefa tipo) {
+    public void setTipo(TipoTarefaEnum tipo) {
         this.tipo = tipo;
     }
 }

@@ -13,8 +13,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.Zoomanager.dto.tarefaDTO.TarefaSaveDTO;
 import com.example.Zoomanager.entity.Tarefa;
+import com.example.Zoomanager.enums.tarefa.StatusTarefaEnum;
+import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
 import com.example.Zoomanager.entity.Animal;
-import com.example.Zoomanager.enums.TipoTarefa;
 import com.example.Zoomanager.repositories.RepositoryInterface.TarefaRepository;
 import com.example.Zoomanager.repositories.RepositoryInterface.AnimalRepository;
 
@@ -72,7 +73,7 @@ public class TarefaServiceIMPLTest {
         TarefaSaveDTO alertaSaveDTO = new TarefaSaveDTO();
         alertaSaveDTO.setIdAnimal(1L);
         alertaSaveDTO.setIdTratador(1L);
-        alertaSaveDTO.setTipo(TipoTarefa.ALIMENTACAO.toString());
+        alertaSaveDTO.setTipo(TipoTarefaEnum.ALIMENTACAO.toString());
         return alertaSaveDTO;
     }
 
@@ -90,8 +91,8 @@ public class TarefaServiceIMPLTest {
         alerta.setId(1L);
         alerta.setIdTratador(1L);
         alerta.setAnimal(mockAnimal());
-        alerta.setAberto(true);
-        alerta.setTipo(TipoTarefa.ALIMENTACAO);
+        alerta.setStatus(StatusTarefaEnum.ABERTA);
+        alerta.setTipo(TipoTarefaEnum.ALIMENTACAO);
         return alerta;
     }
 

@@ -2,8 +2,9 @@ package com.example.Zoomanager.service.serviceIMPL;
 
 import com.example.Zoomanager.dto.tarefaDTO.TarefaSaveDTO;
 import com.example.Zoomanager.entity.Tarefa;
+import com.example.Zoomanager.enums.tarefa.StatusTarefaEnum;
+import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
 import com.example.Zoomanager.entity.Animal;
-import com.example.Zoomanager.enums.TipoTarefa;
 import com.example.Zoomanager.repositories.RepositoryInterface.TarefaRepository;
 import com.example.Zoomanager.repositories.RepositoryInterface.AnimalRepository;
 
@@ -30,7 +31,7 @@ public class TarefaServiceIMPL implements TarefaService {
 
         // TODO: Adicionar validação do ID do tratador
 
-        TipoTarefa tipoTarefaVerificado = EnumUtils.getEnumValueFromString(TipoTarefa.class, tarefaSaveDTO.getTipo());
+        TipoTarefaEnum tipoTarefaVerificado = EnumUtils.getEnumValueFromString(TipoTarefaEnum.class, tarefaSaveDTO.getTipo());
         if (tipoTarefaVerificado == null) {
             throw new RuntimeException("Tipo de tarefa inválido: " + tarefaSaveDTO.getTipo());
         }
@@ -38,7 +39,7 @@ public class TarefaServiceIMPL implements TarefaService {
         Tarefa alerta = new Tarefa(
                 tarefaSaveDTO.getIdTratador(),
                 animalRef,
-                true, // Por padrão, o alerta começa como aberto
+                StatusTarefaEnum.ABERTA, // Por padrão, a tarefa começa como aberta
                 tipoTarefaVerificado
         );
         repository.save(alerta);
