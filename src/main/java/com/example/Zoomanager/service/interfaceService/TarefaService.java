@@ -4,5 +4,6 @@ import com.example.Zoomanager.dto.tarefaDTO.TarefaSaveDTO;
 
 public interface TarefaService {
 
-    void addTarefa(TarefaSaveDTO AlertaSaveDto);
+    void addTarefa(TarefaSaveDTO tarefaSaveDto);
+    void iniciarExecucaoTarefa(long tarefaId);
 }

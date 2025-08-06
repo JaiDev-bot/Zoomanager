@@ -37,13 +37,12 @@ public class TarefaServiceIMPL implements TarefaService {
         
         long idTratador = tarefaSaveDTO.getIdTratador();
         Tratador tratadorRef = tratadorRepository.findById(idTratador)
-                .orElseThrow(() -> new BadRequestException("Não foi possível encontrar o tratador com o id: " + idTratador));
+            .orElseThrow(() -> new BadRequestException("Não foi possível encontrar o tratador com o id: " + idTratador));
 
         TipoTarefaEnum tipoTarefaVerificado = EnumUtils.getEnumValueFromString(TipoTarefaEnum.class, tarefaSaveDTO.getTipo());
-        if (tipoTarefaVerificado == null) {
+        if (tipoTarefaVerificado == null) 
             throw new BadRequestException("Tipo de tarefa inválido: " + tarefaSaveDTO.getTipo());
-        }
-
+        
         Tarefa alerta = new Tarefa(
                 tratadorRef,
                 animalRef,
@@ -51,5 +50,18 @@ public class TarefaServiceIMPL implements TarefaService {
                 tipoTarefaVerificado
         );
         repository.save(alerta);
+    }
+
+    @Override
+    public void iniciarExecucaoTarefa(long tarefaId) {
+
+        Tarefa tarefa = repository.findById(tarefaId)
+            .orElseThrow(() -> new BadRequestException("Tarefa não encontrada com o id: " + tarefaId));
+
+        if (tarefa.getStatus() != StatusTarefaEnum.ABERTA)
+            throw new BadRequestException("A tarefa não pode ter sido iniciada anteriormente. Crie uma nova tarefa para poder executá-la.");
+
+        tarefa.setStatus(StatusTarefaEnum.EXECUTANDO);
+        repository.save(tarefa);
     }
 }
