@@ -35,8 +35,8 @@ public class AnimalController implements AnimalSwagger {
 
         } catch (Exception e) {
 
-            logger.error("Não foi possivel adicionar o animal. " , e);
-            return ResponseEntity.internalServerError().body("Não foi possivel adicionar o animal");
+            logger.error("Não foi possivel adicionar o animal." , e);
+            return ResponseEntity.internalServerError().body("Não foi possivel adicionar o animal.");
 
         }
     }

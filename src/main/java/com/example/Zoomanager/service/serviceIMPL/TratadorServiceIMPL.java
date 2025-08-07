@@ -7,6 +7,9 @@ import com.example.Zoomanager.service.interfaceService.TratadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 public class TratadorServiceIMPL implements TratadorService {
@@ -23,6 +26,25 @@ public class TratadorServiceIMPL implements TratadorService {
         ));
 
         return "";
+    }
+
+    @Override
+    public List<TratadorSaveDTO> getAllTratador(){
+        List<Tratador> tratadorEntities = tratadorRepository.findAll();
+
+        return tratadorEntities.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    private TratadorSaveDTO convertToDto(Tratador tratador) {
+       TratadorSaveDTO dto = new TratadorSaveDTO();
+
+       dto.setId(tratador.getId());
+        dto.setName(tratador.getName());
+        dto.setOcupado(tratador.getOcupado());
+
+        return dto;
     }
 
 
