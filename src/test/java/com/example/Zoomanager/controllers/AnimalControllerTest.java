@@ -5,11 +5,13 @@ package com.example.Zoomanager.controllers;
 import com.example.Zoomanager.service.interfaceService.AnimalService;
 import com.example.Zoomanager.dto.animalDTO.AnimalSaveDTO;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
@@ -27,14 +29,23 @@ public class AnimalControllerTest {
     @InjectMocks
     private AnimalController animalController;
 
+    @BeforeEach
+    public void setUp() {
+
+        MockitoAnnotations.openMocks(this);
+    }
+
+
     @Test
     void addAnimal_Sucesso_Created() {
+
         AnimalSaveDTO mockAnimalSaveDTO = new AnimalSaveDTO();
-        Mockito.doNothing().when(animalService).addAnimal(mockAnimalSaveDTO);
+
+        Mockito.when(animalService.addAnimal(Mockito.any(AnimalSaveDTO.class))).thenReturn("");
 
         ResponseEntity<?> response = animalController.saveAnimal(mockAnimalSaveDTO);
 
-        assertEquals(ResponseEntity.created(null).body("Animal adicionado com sucesso!"), response);
+        Assertions.assertEquals(ResponseEntity.created(null).body(" Foi adicionado com sucesso!"), response);
     }
 
     @Test
