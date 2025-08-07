@@ -1,7 +1,8 @@
 package com.example.Zoomanager.entity;
 
-import com.example.Zoomanager.enums.TipoAlerta;
 
+
+import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
 import jakarta.persistence.*;
 
 
@@ -22,11 +23,11 @@ public class Alerta {
     private boolean aberto;
 
     @Enumerated(EnumType.STRING)
-    private TipoAlerta tipo;
+    private TipoTarefaEnum tipo;
 
     public Alerta() {}
 
-    public Alerta(Long idTratador, Animal animal, boolean aberto, TipoAlerta tipo) {
+    public Alerta(Long idTratador, Animal animal, boolean aberto, TipoTarefaEnum tipo) {
         this.idTratador = idTratador;
         this.animal = animal;
         this.aberto = aberto;
@@ -66,11 +67,11 @@ public class Alerta {
         this.aberto = aberto;
     }
 
-    public TipoAlerta getTipo() {
+    public TipoTarefaEnum getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoAlerta tipo) {
+    public void setTipo(TipoTarefaEnum tipo) {
         this.tipo = tipo;
     }
 }
