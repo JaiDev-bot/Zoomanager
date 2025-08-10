@@ -1,5 +1,10 @@
 package com.example.Zoomanager.service.serviceIMPL;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
+
 import java.time.LocalTime;
 import java.util.Optional;
 
@@ -64,6 +69,7 @@ public class TarefaServiceIMPLTest {
         Animal mockAnimal = mockAnimal();
         mockAnimal.setId(-1L);
 
+        Mockito.verify(repository, times(0)).save(Mockito.any(Tarefa.class));
         Assertions.assertThrows(BadRequestException.class, () -> service.addTarefa(mockTarefaSaveDTO));
     }
     
@@ -77,6 +83,7 @@ public class TarefaServiceIMPLTest {
         Mockito.when(animalRepository.findById(Mockito.anyLong()))
             .thenReturn(Optional.of(mockAnimal));
 
+        Mockito.verify(repository, times(0)).save(Mockito.any(Tarefa.class));
         Assertions.assertThrows(BadRequestException.class, () -> service.addTarefa(mockTarefaSaveDTO));
     }
 
@@ -93,7 +100,43 @@ public class TarefaServiceIMPLTest {
         Mockito.when(tratadorRepository.findById(Mockito.anyLong()))
             .thenReturn(Optional.of(mockTratador));
 
+        Mockito.verify(repository, times(0)).save(Mockito.any(Tarefa.class));
         Assertions.assertThrows(BadRequestException.class, () -> service.addTarefa(mockTarefaSaveDTO));
+    }
+
+    @Test
+    void iniciarExecucaoTarefa_Sucesso() {
+
+        Tarefa tarefa = mockTarefa();
+        long tarefaId = tarefa.getId();
+        Mockito.when(repository.findById(tarefaId)).thenReturn(Optional.of(tarefa));
+
+        service.iniciarExecucaoTarefa(tarefaId);
+
+        Mockito.verify(repository, times(1)).save(tarefa);
+        assertEquals(StatusTarefaEnum.EXECUTANDO, tarefa.getStatus());
+    }
+
+    @Test
+    void iniciarExecucaoTarefa_TarefaNaoEncontrada() {
+
+        Long tarefaId = 1L;
+        when(repository.findById(tarefaId)).thenReturn(Optional.empty());
+
+        Mockito.verify(repository, times(0)).save(Mockito.any(Tarefa.class));
+        assertThrows(BadRequestException.class, () -> service.iniciarExecucaoTarefa(tarefaId));
+    }
+
+    @Test
+    void iniciarExecucaoTarefa_TarefaJaIniciada() {
+        
+        Tarefa tarefa = new Tarefa();
+        long tarefaId = tarefa.getId();
+        tarefa.setStatus(StatusTarefaEnum.EXECUTANDO);
+        when(repository.findById(tarefaId)).thenReturn(Optional.of(tarefa));
+
+        Mockito.verify(repository, times(0)).save(Mockito.any(Tarefa.class));
+        assertThrows(BadRequestException.class, () -> service.iniciarExecucaoTarefa(tarefaId));
     }
 
     private TarefaSaveDTO mockTarefaSaveDTO() {
