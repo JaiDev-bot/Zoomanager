@@ -1,5 +1,7 @@
 package com.example.Zoomanager.dto.tratadorDTO;
 
+import com.example.Zoomanager.entity.Tratador;
+
 public class TratadorSaveDTO {
     private Long id;
     private String name;
@@ -10,10 +12,10 @@ public class TratadorSaveDTO {
     }
 
 
-    public TratadorSaveDTO(Long id, String name, Boolean ocupado) {
-        this.id = id;
-        this.name = name;
-        this.ocupado = ocupado;
+    public TratadorSaveDTO(Tratador tratador) {
+        this.id = tratador.getId();
+        this.name = tratador.getName();
+        this.ocupado = tratador.getOcupado();
     }
 
     public Long getId() {

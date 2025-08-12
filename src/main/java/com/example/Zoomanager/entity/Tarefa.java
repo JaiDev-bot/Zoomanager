@@ -3,16 +3,10 @@ package com.example.Zoomanager.entity;
 import com.example.Zoomanager.enums.tarefa.StatusTarefaEnum;
 import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+
+@Table(name= "TB TAREFA")
 @Entity
 public class Tarefa {
 

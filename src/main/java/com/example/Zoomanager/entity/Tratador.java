@@ -3,7 +3,7 @@ package com.example.Zoomanager.entity;
 
 import jakarta.persistence.*;
 
-@Table(name = "Tratador")
+@Table(name = "TB TRATADOR")
 @Entity
 public class Tratador {
 
