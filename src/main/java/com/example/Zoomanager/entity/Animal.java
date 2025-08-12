@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 import jakarta.persistence.*;
 
-@Table(name = "Animal")
+@Table(name = "TB ANIMAL")
 @Entity
 public class Animal {
 
@@ -15,6 +15,10 @@ public class Animal {
     private String name;
     private Long idEspecie;
     private LocalTime LastTimeFed;
+
+    @ManyToOne
+    @JoinColumn(name = "habitat_id")
+    private Habitat habitat;
 
     public Animal() {}
 
