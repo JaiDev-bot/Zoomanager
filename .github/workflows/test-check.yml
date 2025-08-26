@@ -1,4 +1,4 @@
-name: Java Test Check
+name: Test Check
 
 on:
   pull_request:
