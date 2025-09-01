@@ -37,25 +37,26 @@ public class AnimalControllerTest {
 
 
     @Test
-    void addAnimal_Sucesso_Created() {
 
+    void saveAnimal_DeveRetornarCreated_ComMensagemDeSucesso() {
         AnimalSaveDTO mockAnimalSaveDTO = new AnimalSaveDTO();
+        Mockito.when(animalService.addAnimal(Mockito.any(AnimalSaveDTO.class))).thenReturn("Leão");
 
-        Mockito.when(animalService.addAnimal(Mockito.any(AnimalSaveDTO.class))).thenReturn("");
+        ResponseEntity<String> response = animalController.saveAnimal(mockAnimalSaveDTO);
 
-        ResponseEntity<?> response = animalController.saveAnimal(mockAnimalSaveDTO);
-
-        Assertions.assertEquals(ResponseEntity.created(null).body(" Foi adicionado com sucesso!"), response);
+        assertEquals(201, response.getStatusCodeValue());
+        assertEquals("Leão Foi adicionado com sucesso!", response.getBody());
     }
 
     @Test
-    void addAnimal_Falha_InternalServerError() {
+    void saveAnimal_DeveRetornarInternalServerError_EmCasoDeFalha() {
         AnimalSaveDTO mockAnimalSaveDTO = new AnimalSaveDTO();
-        Mockito.doThrow(RuntimeException.class).when(animalService).addAnimal(mockAnimalSaveDTO);
+        Mockito.doThrow(new RuntimeException("Erro")).when(animalService).addAnimal(Mockito.any(AnimalSaveDTO.class));
 
-        ResponseEntity<?> response = animalController.saveAnimal(mockAnimalSaveDTO);
+        ResponseEntity<String> response = animalController.saveAnimal(mockAnimalSaveDTO);
 
-        assertEquals(ResponseEntity.internalServerError().body("Não foi possível adicionar o animal."), response);
+        assertEquals(500, response.getStatusCodeValue());
+        assertEquals("Não foi possivel adicionar o animal.", response.getBody());
     }
 
     @Test
