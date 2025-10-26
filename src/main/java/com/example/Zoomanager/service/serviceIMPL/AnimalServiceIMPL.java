@@ -54,4 +54,14 @@ public class AnimalServiceIMPL implements AnimalService {
                 .map(animalMapper::toSaveDTO)
                 .toList();
     }
+    
+    @Override
+    public List<AnimalSearchDTO> getHungryAnimals() {
+
+        List<Animal> animalEntities = animalRepository.findHungryAnimals();
+
+        return animalEntities.stream()
+                .map(animalMapper::toSearchDTO)
+                .toList();
+    }
 }
