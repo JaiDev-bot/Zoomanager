@@ -14,7 +14,7 @@ public class Animal {
 
     private String name;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "idEspecie", foreignKey = @ForeignKey(name = "animal_fk_especie"))
     private Especie especie;
 

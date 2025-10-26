@@ -26,6 +26,7 @@ import com.example.Zoomanager.repositories.repositoryInterface.AnimalRepository;
 import com.example.Zoomanager.repositories.repositoryInterface.TarefaRepository;
 import com.example.Zoomanager.repositories.repositoryInterface.TratadorRepository;
 import com.example.Zoomanager.entity.Animal;
+import com.example.Zoomanager.entity.Especie;
 
 @ExtendWith(MockitoExtension.class)
 public class TarefaServiceIMPLTest {
@@ -151,7 +152,7 @@ public class TarefaServiceIMPLTest {
         Animal animal = new Animal();
         animal.setId(1L);
         animal.setName("Leão");
-        animal.setIdEspecie(1L);
+        animal.setEspecie(new Especie());
         animal.setLastTimeFed(LocalTime.now());
         return animal;
     }
