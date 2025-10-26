@@ -13,15 +13,19 @@ public class Animal {
     private Long id;
 
     private String name;
-    private Long idEspecie;
-    private LocalTime LastTimeFed;
+
+    @ManyToMany
+    @JoinColumn(name = "idEspecie", foreignKey = @ForeignKey(name = "animal_fk_especie"))
+    private Especie especie;
+
+    private LocalTime lastTimeFed;
 
     public Animal() {}
 
-    public Animal(String name, Long idEspecie, LocalTime lastTimeFed) {
+    public Animal(String name, Especie especie, LocalTime lastTimeFed) {
         this.name = name;
-        this.idEspecie = idEspecie;
-        LastTimeFed = lastTimeFed;
+        this.especie = especie;
+        this.lastTimeFed = lastTimeFed;
     }
 
     public Long getId() {
@@ -40,20 +44,20 @@ public class Animal {
         this.name = name;
     }
 
-    public Long getIdEspecie() {
-        return idEspecie;
+    public Especie getEspecie() {
+        return especie;
     }
 
-    public void setIdEspecie(Long idEspecie) {
-        this.idEspecie = idEspecie;
+    public void setEspecie(Especie especie) {
+        this.especie = especie;
     }
 
     public LocalTime getLastTimeFed() {
-        return LastTimeFed;
+        return lastTimeFed;
     }
 
     public void setLastTimeFed(LocalTime lastTimeFed) {
-        LastTimeFed = lastTimeFed;
+        this.lastTimeFed = lastTimeFed;
     }
 }
 
