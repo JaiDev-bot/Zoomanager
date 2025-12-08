@@ -33,7 +33,6 @@ public class AnimalServiceIMPL implements AnimalService {
         long idEspecie = animalSaveDTO.getIdEspecie();
         Especie especieRef = especieRepository.findById(idEspecie)
             .orElseThrow(() -> new BadRequestException("Não foi possível encontrar a espécie com o id: " + idEspecie));
-        
 
         animalRepository.save(new Animal(
             animalSaveDTO.getName(),
