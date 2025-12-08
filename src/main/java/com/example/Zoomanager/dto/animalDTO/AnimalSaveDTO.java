@@ -1,17 +1,17 @@
 package com.example.Zoomanager.dto.animalDTO;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class AnimalSaveDTO {
     private String name;
     private Long idEspecie;
-    private LocalTime lastTimeFed;
+    private LocalDateTime lastTimeFed;
 
     public AnimalSaveDTO(){
 
     }
 
-    public AnimalSaveDTO(String name, Long idEspecie, LocalTime lastTimeFed) {
+    public AnimalSaveDTO(String name, Long idEspecie, LocalDateTime lastTimeFed) {
         this.name = name;
         this.idEspecie = idEspecie;
         this.lastTimeFed = lastTimeFed;
@@ -33,11 +33,11 @@ public class AnimalSaveDTO {
         this.idEspecie = idEspecie;
     }
 
-    public LocalTime getLastTimeFed() {
+    public LocalDateTime getLastTimeFed() {
         return lastTimeFed;
     }
 
-    public void setLastTimeFed(LocalTime lastTimeFed) {
+    public void setLastTimeFed(LocalDateTime lastTimeFed) {
         this.lastTimeFed = lastTimeFed;
     }
 }

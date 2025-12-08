@@ -1,6 +1,6 @@
 package com.example.Zoomanager.entity;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 
@@ -13,8 +13,12 @@ public class Animal {
     private Long id;
 
     private String name;
-    private Long idEspecie;
-    private LocalTime LastTimeFed;
+
+    @ManyToOne
+    @JoinColumn(name = "idEspecie", foreignKey = @ForeignKey(name = "animal_fk_especie"))
+    private Especie especie;
+
+    private LocalDateTime lastTimeFed;
 
     @ManyToOne
     @JoinColumn(name = "habitat_id")
@@ -22,10 +26,10 @@ public class Animal {
 
     public Animal() {}
 
-    public Animal(String name, Long idEspecie, LocalTime lastTimeFed) {
+    public Animal(String name, Especie especie, LocalDateTime lastTimeFed) {
         this.name = name;
-        this.idEspecie = idEspecie;
-        LastTimeFed = lastTimeFed;
+        this.especie = especie;
+        this.lastTimeFed = lastTimeFed;
     }
 
     public Long getId() {
@@ -44,20 +48,20 @@ public class Animal {
         this.name = name;
     }
 
-    public Long getIdEspecie() {
-        return idEspecie;
+    public Especie getEspecie() {
+        return especie;
     }
 
-    public void setIdEspecie(Long idEspecie) {
-        this.idEspecie = idEspecie;
+    public void setEspecie(Especie especie) {
+        this.especie = especie;
     }
 
-    public LocalTime getLastTimeFed() {
-        return LastTimeFed;
+    public LocalDateTime getLastTimeFed() {
+        return lastTimeFed;
     }
 
-    public void setLastTimeFed(LocalTime lastTimeFed) {
-        LastTimeFed = lastTimeFed;
+    public void setLastTimeFed(LocalDateTime lastTimeFed) {
+        this.lastTimeFed = lastTimeFed;
     }
 }
 

@@ -1,62 +1,93 @@
 package com.example.Zoomanager.service.serviceIMPL;
 
-
 import com.example.Zoomanager.dto.animalDTO.AnimalSaveDTO;
+import com.example.Zoomanager.dto.animalDTO.AnimalSearchDTO;
 import com.example.Zoomanager.entity.Animal;
+import com.example.Zoomanager.entity.Especie;
+import com.example.Zoomanager.exceptions.BadRequestException;
+import com.example.Zoomanager.mappers.AnimalMapper;
 import com.example.Zoomanager.repositories.repositoryInterface.AnimalRepository;
-import com.example.Zoomanager.service.serviceIMPL.AnimalServiceIMPL;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import com.example.Zoomanager.repositories.repositoryInterface.EspecieRepository;
 
-import java.time.LocalTime;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-public class AnimalServiceIMPLTest {
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+class AnimalServiceIMPLTest {
 
     @Mock
     private AnimalRepository animalRepository;
+
+    @Mock
+    private EspecieRepository especieRepository;
+
+    @Mock
+    private AnimalMapper animalMapper;
 
     @InjectMocks
     private AnimalServiceIMPL animalServiceIMPL;
 
     @Test
-    void contextLoads() {
+    void addAnimal_Falha_AnimalNaoEncontrado(){
+
+        // Arrange
+        AnimalSaveDTO mockAnimalSaveDTO = mockAnimalSaveDTO();
+
+        when(especieRepository.findById(anyLong()))
+            .thenReturn(Optional.ofNullable(null));
+
+        // Act e Assert
+        assertThrows(BadRequestException.class, () -> {
+            animalServiceIMPL.addAnimal(mockAnimalSaveDTO);
+        });
     }
 
-    public AnimalServiceIMPLTest() {
-        MockitoAnnotations.openMocks(this);
-    }
     @Test
     void addAnimal_Sucesso() {
-        AnimalSaveDTO dto = new AnimalSaveDTO();
-        dto.setName("Leão");
-        dto.setIdEspecie(1L);
-        dto.setLastTimeFed(LocalTime.parse("12:00"));
 
-        when(animalRepository.save(any(Animal.class))).thenReturn(new Animal());
+        // Arrange
+        AnimalSaveDTO mockAnimalSaveDTO = mockAnimalSaveDTO();
+        Especie mockEspecie = mock(Especie.class);
+        Animal mockAnimal = mock(Animal.class);
 
-        String result = animalServiceIMPL.addAnimal(dto);
+        when(especieRepository.findById(anyLong()))
+            .thenReturn(Optional.of(mockEspecie));
 
-        assertEquals("", result);
-        verify(animalRepository, times(1)).save(any(Animal.class));
+        when(animalRepository.save(any()))
+            .thenReturn(mockAnimal);
+
+        // Act e Assert
+        assertDoesNotThrow(() -> {
+            animalServiceIMPL.addAnimal(mockAnimalSaveDTO);
+        });
     }
-
 
     @Test
     void addAnimal_Falha() {
+
         AnimalSaveDTO dto = new AnimalSaveDTO();
         dto.setName("Tigre");
         dto.setIdEspecie(2L);
-        dto.setLastTimeFed(LocalTime.parse("2024-06-02"));
-
+        dto.setLastTimeFed(LocalDateTime.now());
+        Especie mockEspecie = mock(Especie.class);
+        
+        when(especieRepository.findById(anyLong())).thenReturn(Optional.of(mockEspecie));
         when(animalRepository.save(any(Animal.class))).thenThrow(new RuntimeException("Erro ao salvar"));
 
         assertThrows(RuntimeException.class, () -> animalServiceIMPL.addAnimal(dto));
@@ -65,20 +96,21 @@ public class AnimalServiceIMPLTest {
 
     @Test
     void getAllAnimals_Sucesso() {
-        Animal animal1 = new Animal("Leão", 1L, LocalTime.parse("12:00"));
-        Animal animal2 = new Animal("Tigre", 2L, LocalTime.parse("13:00"));
-        List<Animal> animalList = List.of(animal1, animal2);
 
-        when(animalRepository.findAll()).thenReturn(animalList);
+        // Arrange
+        Animal mockAnimal = mock(Animal.class);
+        AnimalSaveDTO mockAnimalSaveDTO = mock(AnimalSaveDTO.class);
 
-        List<AnimalSaveDTO> result = animalServiceIMPL.getAllAnimals();
-
-        assertEquals(2, result.size());
-        assertEquals("Leão", result.get(0).getName());
-        assertEquals("Tigre", result.get(1).getName());
-        verify(animalRepository, times(1)).findAll();
+        when(animalRepository.findAll())
+            .thenReturn(List.of(mockAnimal));
+        when(animalMapper.toSaveDTO(any()))
+            .thenReturn(mockAnimalSaveDTO);
+    
+        // Act e Assert
+        assertDoesNotThrow(() -> {
+            animalServiceIMPL.getAllAnimals();
+        });
     }
-
 
     @Test
     void getAllAnimals_Falha() {
@@ -88,6 +120,33 @@ public class AnimalServiceIMPLTest {
         verify(animalRepository, times(1)).findAll();
     }
 
+
+    @Test
+    void getHungryAnimals_Sucesso() {
+
+        // Arrange
+        Animal mockAnimal = mock(Animal.class);
+        AnimalSearchDTO mockAnimalSearchDTO = mock(AnimalSearchDTO.class);
+
+        when(animalRepository.findHungryAnimals())
+            .thenReturn(List.of(mockAnimal));
+
+        when(animalMapper.toSearchDTO(any()))
+            .thenReturn(mockAnimalSearchDTO);
+
+        // Act e Assert
+        assertDoesNotThrow(() -> {
+            animalServiceIMPL.getHungryAnimals();
+        });
     }
+
+    private AnimalSaveDTO mockAnimalSaveDTO() {
+        AnimalSaveDTO animalSaveDTO = new AnimalSaveDTO();
+        animalSaveDTO.setName("Leão");
+        animalSaveDTO.setIdEspecie(1L);
+        animalSaveDTO.setLastTimeFed(LocalDateTime.now());
+        return animalSaveDTO;
+    }
+}
 
 

@@ -1,6 +1,7 @@
 package com.example.Zoomanager.controllers;
 
 
+import com.example.Zoomanager.dto.animalDTO.AnimalSearchDTO;
 import com.example.Zoomanager.dto.animalDTO.AnimalSaveDTO;
 import com.example.Zoomanager.service.interfaceService.AnimalService;
 
@@ -56,6 +57,25 @@ public class AnimalController implements AnimalSwagger {
             logger.error("Não foi possível buscar os animais.", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(null);
+        }
+
+    }
+    
+    @GetMapping("/famintos")
+    public ResponseEntity<List<AnimalSearchDTO>> getHungryAnimals() {
+
+        try {
+
+            List<AnimalSearchDTO> animals = animalService.getHungryAnimals();
+            if (animals.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(animals);
+
+        } catch (Exception e) {
+
+            logger.error("Não foi possível buscar animais com fome.", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
     }
