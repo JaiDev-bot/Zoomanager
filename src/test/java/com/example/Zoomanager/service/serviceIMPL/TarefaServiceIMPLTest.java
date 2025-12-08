@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -29,7 +29,7 @@ import com.example.Zoomanager.entity.Animal;
 import com.example.Zoomanager.entity.Especie;
 
 @ExtendWith(MockitoExtension.class)
-public class TarefaServiceIMPLTest {
+class TarefaServiceIMPLTest {
 
     @Mock
     private TarefaRepository repository;
@@ -153,7 +153,7 @@ public class TarefaServiceIMPLTest {
         animal.setId(1L);
         animal.setName("Leão");
         animal.setEspecie(new Especie());
-        animal.setLastTimeFed(LocalTime.now());
+        animal.setLastTimeFed(LocalDateTime.now());
         return animal;
     }
     

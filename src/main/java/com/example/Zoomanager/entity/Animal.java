@@ -1,6 +1,6 @@
 package com.example.Zoomanager.entity;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 
@@ -18,11 +18,11 @@ public class Animal {
     @JoinColumn(name = "idEspecie", foreignKey = @ForeignKey(name = "animal_fk_especie"))
     private Especie especie;
 
-    private LocalTime lastTimeFed;
+    private LocalDateTime lastTimeFed;
 
     public Animal() {}
 
-    public Animal(String name, Especie especie, LocalTime lastTimeFed) {
+    public Animal(String name, Especie especie, LocalDateTime lastTimeFed) {
         this.name = name;
         this.especie = especie;
         this.lastTimeFed = lastTimeFed;
@@ -52,11 +52,11 @@ public class Animal {
         this.especie = especie;
     }
 
-    public LocalTime getLastTimeFed() {
+    public LocalDateTime getLastTimeFed() {
         return lastTimeFed;
     }
 
-    public void setLastTimeFed(LocalTime lastTimeFed) {
+    public void setLastTimeFed(LocalDateTime lastTimeFed) {
         this.lastTimeFed = lastTimeFed;
     }
 }
