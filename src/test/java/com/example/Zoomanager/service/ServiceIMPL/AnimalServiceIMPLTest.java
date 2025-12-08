@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
@@ -57,7 +59,7 @@ class AnimalServiceIMPLTest {
     }
 
     @Test
-    void addAnimal_Sucesso(){
+    void addAnimal_Sucesso() {
 
         // Arrange
         AnimalSaveDTO mockAnimalSaveDTO = mockAnimalSaveDTO();
@@ -77,6 +79,22 @@ class AnimalServiceIMPLTest {
     }
 
     @Test
+    void addAnimal_Falha() {
+
+        AnimalSaveDTO dto = new AnimalSaveDTO();
+        dto.setName("Tigre");
+        dto.setIdEspecie(2L);
+        dto.setLastTimeFed(LocalDateTime.now());
+        Especie mockEspecie = mock(Especie.class);
+        
+        when(especieRepository.findById(anyLong())).thenReturn(Optional.of(mockEspecie));
+        when(animalRepository.save(any(Animal.class))).thenThrow(new RuntimeException("Erro ao salvar"));
+
+        assertThrows(RuntimeException.class, () -> animalServiceIMPL.addAnimal(dto));
+        verify(animalRepository, times(1)).save(any(Animal.class));
+    }
+
+    @Test
     void getAllAnimals_Sucesso() {
 
         // Arrange
@@ -85,15 +103,23 @@ class AnimalServiceIMPLTest {
 
         when(animalRepository.findAll())
             .thenReturn(List.of(mockAnimal));
-
         when(animalMapper.toSaveDTO(any()))
             .thenReturn(mockAnimalSaveDTO);
-
+    
         // Act e Assert
         assertDoesNotThrow(() -> {
             animalServiceIMPL.getAllAnimals();
         });
     }
+
+    @Test
+    void getAllAnimals_Falha() {
+        when(animalRepository.findAll()).thenThrow(new RuntimeException("Erro ao buscar animais"));
+
+        assertThrows(RuntimeException.class, () -> animalServiceIMPL.getAllAnimals());
+        verify(animalRepository, times(1)).findAll();
+    }
+
 
     @Test
     void getHungryAnimals_Sucesso() {
@@ -121,5 +147,6 @@ class AnimalServiceIMPLTest {
         animalSaveDTO.setLastTimeFed(LocalDateTime.now());
         return animalSaveDTO;
     }
-
 }
+
+

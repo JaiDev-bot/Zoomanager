@@ -6,7 +6,7 @@ import com.example.Zoomanager.enums.tarefa.TipoTarefaEnum;
 import jakarta.persistence.*;
 
 
-@Table(name = "Alerta")
+@Table(name = "TB ALERTA")
 @Entity
 public class Alerta {
 

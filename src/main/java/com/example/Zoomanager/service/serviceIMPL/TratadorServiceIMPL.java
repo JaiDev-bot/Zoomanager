@@ -33,19 +33,11 @@ public class TratadorServiceIMPL implements TratadorService {
         List<Tratador> tratadorEntities = tratadorRepository.findAll();
 
         return tratadorEntities.stream()
-                .map(this::convertToDto)
+                .map(TratadorSaveDTO::new)
                 .collect(Collectors.toList());
     }
 
-    private TratadorSaveDTO convertToDto(Tratador tratador) {
-       TratadorSaveDTO dto = new TratadorSaveDTO();
 
-       dto.setId(tratador.getId());
-        dto.setName(tratador.getName());
-        dto.setOcupado(tratador.getOcupado());
-
-        return dto;
-    }
 
 
 }
