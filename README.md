@@ -2,6 +2,13 @@
 
 A web API system designed to facilitate **zoo management routines**, covering the administration of animals, caretakers (tratadores), and essential daily tasks.
 
+>[!IMPORTANT]
+>If you would like to see more detailed documentation about the architecture:
+>
+>[![GitBook](https://img.shields.io/badge/GITBOOK-000?style=for-the-badge&logoColor=FFF&color=000)](https://app.gitbook.com/invite/3BzJD9kc8XUB2pCNxAEC/ld9YlMiGhxYZwZ0g9aIf)
+>
+>
+
 The project is structured as a Spring Boot application:
 
 * **Application/Domain Layer (REST API)**: Developed in Java and Spring Boot, this API handles the logic for managing entities and the task lifecycle.
